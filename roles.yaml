@@ -88,3 +88,34 @@ rules:
   - apiGroups: [""]
     resources: ["namespaces", "namespaces/status"]
     verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-viewer
+rules:
+  # Namespaces - lectura a nivel de cluster
+  - apiGroups: [""]
+    resources: ["namespaces", "namespaces/status"]
+    verbs: ["get", "list", "watch"]
+
+  # Nodos - lectura a nivel de cluster
+  - apiGroups: [""]
+    resources: ["nodes", "nodes/status"]
+    verbs: ["get", "list", "watch"]
+
+  # PersistentVolumes - lectura a nivel de cluster
+  - apiGroups: [""]
+    resources: ["persistentvolumes", "persistentvolumes/status"]
+    verbs: ["get", "list", "watch"]
+
+  # StorageClasses - lectura a nivel de cluster
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+
+  # ClusterRoles y ClusterRoleBindings - lectura a nivel de cluster
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["clusterroles", "clusterrolebindings"]
+    verbs: ["get", "list"]
